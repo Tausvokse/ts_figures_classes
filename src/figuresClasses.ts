@@ -16,12 +16,13 @@ export class Triangle implements Figure {
     public b: number,
     public c: number,
   ) {
-    if (a <= 0 || b <= 0 || c <= 0 || !(a + b > c && a + c > b && b + c > a)) {
-      throw new Error(
-        'Your side maybe = 0, or the longest side is >= than a sum of 2 others',
-      );
+    if (a <= 0 || b <= 0 || c <= 0) {
+      throw new Error('any length is <= 0');
     }
-    this.color = color;
+
+    if (!(a + b > c && a + c > b && b + c > a)) {
+      throw new Error(`sides ${a}, ${b} and ${c} can't form a triangle`);
+    }
   }
 
   public getArea(): number {
@@ -40,16 +41,15 @@ export class Circle implements Figure {
 
   constructor(
     public color: Color,
-    public a: number,
+    public radius: number,
   ) {
-    if (a <= 0) {
-      throw new Error('Your radius maybe <= 0');
+    if (radius <= 0) {
+      throw new Error('Your radius must be greater than 0');
     }
-    this.color = color;
   }
 
   public getArea(): number {
-    return Math.floor(Math.PI * (this.a * this.a) * 100) / 100;
+    return Math.floor(Math.PI * (this.radius * this.radius) * 100) / 100;
   }
 }
 
@@ -58,17 +58,16 @@ export class Rectangle implements Figure {
 
   constructor(
     public color: Color,
-    public a: number,
-    public b: number,
+    public width: number,
+    public height: number,
   ) {
-    if (a <= 0 || b <= 0) {
-      throw new Error('Your side maybe = 0');
+    if (width <= 0 || height <= 0) {
+      throw new Error('Your sides must be greater than 0');
     }
-    this.color = color;
   }
 
   public getArea(): number {
-    return Math.floor(this.a * this.b * 100) / 100;
+    return Math.floor(this.width * this.height * 100) / 100;
   }
 }
 
